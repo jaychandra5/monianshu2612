@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Valentine special 💖</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #ff4f7b, #ff9a9e);
+            color: #fff;
+            text-align: center;
+            overflow-x: hidden
+        }
+
+        section {
+            min-height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            animation: fadeIn 1.2s
+        }
+
+        section.active {
+            display: flex
+        }
+
+        h1,
+        h2 {
+            animation: slideDown 1s
+        }
+
+        button {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            margin: 12px;
+            cursor: pointer;
+            transition: .3s
+        }
+
+        .yes {
+            background: #2ecc71;
+            color: #fff;
+            animation: pulse 1.5s infinite
+        }
+
+        .no {
+            background: #e74c3c;
+            color: #fff
+        }
+
+        .next {
+            background: #fff;
+            color: #ff4f7b;
+            position: sticky;
+            bottom: 20px
+        }
+
+        img.heart {
+            width: 220px;
+            animation: beat 1s infinite
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            width: 80%;
+            margin: 10px
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            width: 100%;
+        }
+
+        .memory-card {
+            min-height: 200px;
+        }
+
+
+        .memory-card {
+            perspective: 1000px;
+            cursor: pointer
+        }
+
+        .memory-inner {
+            width: 100%;
+            height: 220px;
+            transition: transform .8s;
+            transform-style: preserve-3d
+        }
+
+        .memory-card.flipped .memory-inner {
+            transform: rotateY(180deg)
+        }
+
+        .memory-front,
+        .memory-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, .2)
+        }
+
+        .memory-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .memory-back {
+            transform: rotateY(180deg);
+            padding: 15px;
+            font-size: 16px
+        }
+
+        @keyframes beat {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.2)
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-40px);
+                opacity: 0
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.1)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        .spotify-list {
+            width: 100%;
+            max-width: 650px;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px
+        }
+
+        .spotify-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, .25);
+            border-radius: 14px;
+            padding: 12px 16px
+        }
+
+        .spotify-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover
+        }
+
+        .spotify-info {
+            text-align: left;
+            flex: 1
+        }
+
+        .spotify-info h4 {
+            margin: 0;
+            font-size: 16px
+        }
+
+        .spotify-info p {
+            margin: 2px 0 0;
+            font-size: 13px;
+            opacity: .8
+        }
+
+        .spotify-play {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #1db954;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            text-decoration: none
+        }
+
+        .spotify-play:hover {
+            transform: scale(1.1)
+        }
+
+        @media (max-width: 600px) {
+            .spotify-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .spotify-info {
+                text-align: center;
+            }
+        }
+
+        /* ===== LOVE LETTER FLIP CARD ===== */
+
+        .love-card {
+            width: 360px;
+            height: 480px;
+            perspective: 1400px;
+            margin: 40px auto;
+            cursor: pointer;
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 22px;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: transform 1s ease;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, .35);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ff6a88, #ff99ac);
+            color: #fff;
+        }
+
+        .photo-box {
+            width: 220px;
+            height: 260px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 4px solid rgba(255, 255, 255, .6);
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-front h3 {
+            margin: 10px 0 4px;
+            font-size: 26px;
+        }
+
+        .tap-text {
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        .card-back {
+            background: #fff;
+            color: #333;
+            transform: rotateY(180deg);
+            text-align: center;
+        }
+
+        .card-back h3 {
+            margin-bottom: 12px;
+            color: #ff4f7b;
+        }
+
+        .love-card.open .card-front {
+            transform: rotateY(180deg);
+        }
+
+        .love-card.open .card-back {
+            transform: rotateY(360deg);
+        }
+
+        .card-back p {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .love-card {
+                width: 90%;
+                height: 420px;
+            }
+
+            .photo-box {
+                width: 180px;
+                height: 220px;
+            }
+
+            .card-back p {
+                font-size: 14px;
+            }
+        }
+
+
+        /* MEMORY TEXT → IMAGE EFFECT */
+
+        .memory-card {
+            background: rgba(255, 255, 255, .2);
+            border-radius: 20px;
+            padding: 15px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .memory-text {
+            font-size: 16px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: .6s ease;
+        }
+
+        .memory-img {
+            width: 100%;
+            height: auto;
+            max-height: 220px;
+            object-fit: contain;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+
+        .memory-text.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .memory-img.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .story-video {
+            width: 100%;
+            max-width: 850px;
+            margin: 50px auto 0;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, .4);
+        }
+
+        .story-video video {
+            width: 100%;
+            display: block;
+            background: #000;
+        }
+
+        /* ===== FINAL STORY VIDEO STYLE ===== */
+
+        .story-video {
+            width: 100%;
+            max-width: 900px;
+            /* makes it wide */
+            margin: 30px auto 40px;
+        }
+
+        .story-video video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            /* keeps perfect video shape */
+            border-radius: 22px;
+            object-fit: cover;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+            background: #000;
+        }
+
+
+        .final2 {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(135deg, #f0eaec, #ff8fb1);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #fireworks {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .final-content {
+            position: relative;
+            z-index: 5;
+            /* TEXT ABOVE CANVAS */
+            color: rgb(170, 26, 26);
+            padding: 20px;
+        }
+
+        .final-content h1 {
+            font-size: 52px;
+        }
+
+        .final-content h2 {
+            font-size: 36px;
+        }
+
+        .final-content p {
+            font-size: 20px;
+            max-width: 720px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        /* ===== FINAL PHOTO AREA ===== */
+
+        .final-photo {
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto 25px;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+            animation: fadeIn 1.2s ease;
+        }
+
+        .final-photo img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            /* perfect portrait ratio */
+            object-fit: contain;
+            /* no face cutting */
+            background: #fff;
+            border-radius: 22px;
+        }
+
+        /* Mobile fine-tuning */
+        @media (max-width: 480px) {
+            .final-photo {
+                max-width: 220px;
+            }
+        }
+
+        .gift-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .gift-sub {
+            margin-bottom: 25px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .gift-card {
+            width: 260px;
+            cursor: pointer;
+            position: relative;
+            animation: float 2.5s infinite ease-in-out;
+        }
+
+        .gift-card img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .tap-text {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #ff4081;
+        }
+
+        .gift-details {
+            display: none;
+            margin-top: 25px;
+            background: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 14px;
+            width: 90%;
+            max-width: 320px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .gift-note {
+            margin-top: 10px;
+            font-style: italic;
+            color: #e91e63;
+        }
+
+        .next-btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            background: #ff4081;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 500px) {
+            .gift-card {
+                width: 220px;
+            }
+
+            .gift-details {
+                font-size: 14px;
+            }
+        }
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* ===== GLOBAL RESPONSIVE FIX ===== */
+
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: clamp(28px, 5vw, 52px);
+        }
+
+        h2 {
+            font-size: clamp(22px, 4.5vw, 36px);
+        }
+
+        p {
+            font-size: clamp(14px, 3.5vw, 18px);
+        }
+
+        button {
+            max-width: 90%;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="fireworks"></canvas>
+    <!-- HOME -->
+    <section id="home" class="active">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" class="heart">
+        <h1>Will You Be My Valentine? 💖</h1>
+        <button class="yes" onclick="showPage('yes')">Yes 💕</button>
+        <button class="no" id="noBtn" onclick="noClicked()">No 🙄</button>
+    </section>
+
+    <!-- YES THANK YOU -->
+    <section id="yes">
+        <h1>Thank You for Saying YES 😍</h1>
+        <p>This means the world to me 💖</p>
+        <button class="next" onclick="showPage('password')">Continue ➜</button>
+    </section>
+
+    <!-- PASSWORD -->
+    <section id="password">
+        <h2>Secret Love Gate 🔐</h2>
+        <p>Enter our special word</p>
+        <input id="pass" placeholder="The famous song(line) related to you">
+        <button class="next" onclick="checkPass()">Unlock ❤️</button>
+    </section>
+
+
+    <section id="memories">
+        <h2>Our Memories 📸</h2>
+        <p>Tap a memory to reveal my thoughts 💭</p>
+
+        <div class="memory-grid">
+
+            <!-- Memory 1 -->
+            <div class="memory-card" onclick="showMemory(this)">
+                <p class="memory-text hidden">
+                    This moment made me fall even more 💕
+                </p>
+                <img src="4.jpg" class="memory-img hidden">
+            </div>
+
+            <!-- Memory 2 -->
+            <div class="memory-card" onclick="showMemory(this)">
+                <p class="memory-text hidden">
+                    One of my favorite days with you 🌸
+                </p>
+                <img src="5.jpg" class="memory-img hidden">
+            </div>
+
+            <!-- Memory 3 -->
+            <div class="memory-card" onclick="showMemory(this)">
+                <p class="memory-text hidden">
+                    I smile every time I remember this 😍
+                </p>
+                <img src="6.jpg" class="memory-img hidden">
+            </div>
+
+            <!-- Memory 4 -->
+            <div class="memory-card" onclick="showMemory(this)">
+                <p class="memory-text hidden">
+                    A memory I will always protect ❤️
+                </p>
+                <img src="3.jpg" class="memory-img hidden">
+            </div>
+
+        </div>
+
+        <p style="font-size:14px">YOU AND ME</p>
+        <button class="next" onclick="showPage('music')">Next ➜</button>
+    </section>
+
+
+    <!-- MUSIC TEMPLATE -->
+    <section id="music">
+        <h2>Our Favorite Songs 🎶</h2>
+        <p>Tap ▶ to open & play on Spotify 💚</p>
+
+        <div class="spotify-list">
+
+            <div class="spotify-card">
+                <img src="samjhawan.jpg" alt="Song">
+                <div class="spotify-info">
+                    <h4>Samjhawaan</h4>
+                    <p>Jawed Ahmad,Arijit Singh</p>
+                </div>
+                <a href="https://open.spotify.com/track/0rk2X5TAhraBC5aCIXK2Rq?si=Xm8HZRWqQxWAu41UhdGeww"
+                    target="_blank" class="spotify-play">▶</a>
+            </div>
+
+            <div class="spotify-card">
+                <img src="barfi.jpg" alt="Song">
+                <div class="spotify-info">
+                    <h4>Phir le Aya Dil</h4>
+                    <p>Pritam</p>
+                </div>
+                <a href="https://open.spotify.com/track/7fpWJr5shT90KiCHXKHxch?si=wvxMwP4PQ0KDovon5ILPuQ"
+                    target="_blank" class="spotify-play">▶</a>
+            </div>
+
+            <div class="spotify-card">
+                <img src="sukoon.jpg" alt="Song">
+                <div class="spotify-info">
+                    <h4>Sukoon Mila</h4>
+                    <p>Arijit Singh</p>
+                </div>
+                <a href="https://open.spotify.com/track/1hjL51XZkyEkPjxuenbgKf?si=eX3mANJHT7q243_-H_8wgA"
+                    target="_blank" class="spotify-play">▶</a>
+            </div>
+
+        </div>
+
+        <button class="next" onclick="showPage('letter')">Next ➜</button>
+    </section>
+
+
+
+
+
+    <section id="letter">
+        <h2>A Special Message 💖</h2>
+        <p>Tap the card to open my heart…</p>
+
+        <div class="love-card" onclick="this.classList.toggle('open')">
+
+            <!-- FRONT -->
+            <div class="card-front">
+                <div class="photo-box">
+                    <img src="7.jpg" alt="Love Photo">
+                </div>
+                <h3>Love Letter 💌</h3>
+                <p class="tap-text">Tap to open</p>
+            </div>
+
+            <!-- BACK -->
+            <div class="card-back">
+                <h3>My Love ❤️</h3>
+                <p>
+                    This letter holds everything my words
+                    can’t say out loud.<br><br>
+                    From Day one to this day you are always important for me. may be sometimes I don't so this but you
+                    always matter to me bbu
+                    I LOVE YOU ALWAYS NOT TOO...
+                    You are my safe place,
+                    my forever,
+                    my home.
+                </p>
+                <p>Forever yours 💕</p>
+            </div>
+
+        </div>
+
+        <button class="next" onclick="showPage('final')">Continue ➜</button>
+    </section>
+
+    <section id="final" class="final-page">
+        <h1>Forever & Always ❤️</h1>
+        <p class="subtitle">Some Glimpse of our story.</p>
+        <!-- STORY VIDEO -->
+        <div class="story-video">
+            <video controls poster="cover.jpg">
+                <source src="love-story.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Story Box -->
+        <div class="story-box">
+            <h2>HUMARI KAHANI AAPKE JUBANI✨</h2>
+            <p>
+                🧿The day that changed everything in my life
+                ✨I didn't even know ki uss din ek chote se step se aaj yha tkk pahuch jayenge.🧿😌
+                My 6th standard result day, I went to park with one of my friend celebrating my good scores obviously
+                and there
+                i met my friend's friend who is cute.❤️
+                We introduced each other and i get to know that he is senior than me.
+                We spent time together on that day and too be honest I like that meeting obviously quite awkward for me
+                as he is
+                the first guy I talk very nicely surprisingly.
+                ☺️From that day to many more days I go to park just in a hope that I will met him and this continues for
+                some
+                day.
+                🥳 During those days at some instances I also got jealous and being possessive for him not knowing the
+                reason.🫠
+                One day, i repeated the same i went park but that day was his birthday and his friends persuaded him to
+                propose
+                me but as I was dumb in the topic of 'love' not knowing what does it mean I ran to home and that day i
+                realised
+                I lost something my first male friend ever in my life
+                whom with I feel something to admire but ofc I cried that day don't know why kyuki koi Btane waala tha
+                hi nhi ki
+                ye pyar h kyuki pyar kya hota h pta hi nhi tha.
+                🥹🥹Days passed almost I forget all those things happened past days...you can say I moved on but that's
+                not
+                reality I found him again same awkward whole past things shattered me again but this time we started
+                with a new
+                friendship no proposal nothing just two friends together and i smiled again because I found him again
+                and this
+                time I decided I won't let him go.
+                😌😍Even during this time I handshake for the first time.🤝Sb shii chl rha tha but mujhe toh shii
+                passand nhi
+                kuch I ruin everything again by saying him,"the days I spent with you are the worst days of my life" and
+                again
+                I did the same thing. 💔Again feeling shattered and again koi tha hi nhi Btane ke liye ki wo pyar h
+                pagli syd
+                koi btata toh hm nhi krte.
+                Again days passed, i saw him uske ghr ke pass I think alot kii wo hmko dekhega tkk nhi hmse baat tkk ni
+                krega
+                hmko nhi jana chahiye kyuki 2 saal ho chuka h bhul nhi gya hoga hmko but still I move towards him
+                thinking ki
+                one last chance I won't do anything shit again I stop him at his door and then he told me to wait for 5
+                minutes
+                and after that
+                met him again I feel so happy that time kyuki i know no one will talk after the things
+                I've done in the past still he talked to me very calmly and respectfully and in the same tone asl he
+                talked to
+                me on first day.
+                💗🥹This time finally we started talking quite intimidating, this time we shared our phone no. As well.
+                I still
+                remember ki hm bole the 10 bje me baad hi msg Krna h kyuki papa ka phn h.
+                Sb kuch acha chl rha tha even hm phli baar uske sth scooty pe baithe very nervous heart beat was out of
+                control'
+                even I still remember ki hm itna panik kr rhe the ki scooty hi gir gya but that was a epic moment things
+                goes
+                on...🎉
+                💖but nhi meri story me sb shii chl rha ho aur hmko chutiyapa na Krna ho aisa ho hi nhi skta I called
+                him to end
+                up this i confessed that I won't be able to continue this sorry and went home and blocked him for the
+                first
+                time.
+                And this time I realised that I was in love but I don't have courage to accept because I'm very obedient
+                child
+                and hm jhuth nhi bol skte ge apne parents se.
+                That day I cried out of love that I lose something that I don't want to lose but unfortunately
+                I lossed him.🥺🥺 Almost 6-7 months passed i unblocked him because I can't resist. We started talking
+                again but
+                in words " i love you but as a friend"😃 isn't it amazing but we did so this continues and the sarswati
+                puja day
+                he called me upstairs to confess me that he loves me..I do love him but I'm not ready to accept but that
+                night
+                was magical
+                we talked for few minutes and as I'm going he holds my hands and asked me 'why not' I have answer but
+                I'm not
+                sure that am i able to love him.
+                But after some days I confessed to him that I love him in a very words "meko butterflies ho rha aur mera
+                dil is
+                saying yes and I love you too" 💓that day was quite peaceful that I confessed my feelings to you and
+                that day
+                will always been my special day my favourite day any thing you like to say. 🧿
+                🧿And since that day to this present day our first handshake, first kiss, first handholding everything
+                remain
+                special forever in my heart.❤️ And from that day to this day I love you more more more more more and
+                will love
+                you even more💋💓🧿
+            </p>
+        </div>
+        <button onclick="showPage('final2')">Next ➜</button>
+
+
+    </section>
+
+   
+
+      
+    </section> <!-- end of final -->
+
+    <section id="final2" class="final2">
+        <canvas id="fireworks"></canvas>
+
+        <div class="final-content">
+
+            <!-- PHOTO AREA -->
+            <div class="final-photo">
+                <img src="photo.jpg" alt="Us ❤️">
+            </div>
+
+            <h1>Happy Valentine’s Day ❤️</h1>
+            <h2>Monika Aka Aaluu 💖</h2>
+
+        </div>
+    </section>
+
+
+
+
+
+    <script>
+
+        const pages = document.querySelectorAll("section");
+
+        function showPage(id) {
+            pages.forEach(p => {
+                p.style.display = "none";
+                p.classList.remove("active");
+            });
+
+            const page = document.getElementById(id);
+            page.style.display = "flex";
+            page.classList.add("active");
+
+            if (id === "quiz") {
+                startQuiz();
+            }
+
+            if (id === "final2") {
+                startFireworks();
+            }
+        }
+
+
+
+
+
+
+        function openLetter(el) { el.classList.toggle('open') }
+
+
+        function checkPass() { if (document.getElementById('pass').value.toLowerCase() === 'monika o my darling') { showPage('memories') } else alert('Wrong word 😜') }
+        const noTexts = [
+            'Are you sure? 😏',
+            'Try again 🙄',
+            'Think again 🤔',
+            'Pleaseeee 🥺',
+            'Nope 😂',
+            'Wrong button 😜',
+            'Nice try 😎',
+            'Still no? 🤨',
+            'Heart says YES ❤️',
+            'Last chance 😈'
+        ];
+        let c = 0;
+        function noClicked() {
+            const b = document.getElementById('noBtn');
+            b.innerText = noTexts[c % noTexts.length];
+            c++;
+            b.style.position = 'absolute';
+            b.style.left = Math.random() * (innerWidth - 160) + 'px';
+            b.style.top = Math.random() * (innerHeight - 120) + 'px';
+            b.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            b.style.fontSize = 16 + Math.random() * 6 + 'px';
+            // emoji pop
+            const e = document.createElement('div');
+            e.innerText = ['😂', '😜', '💔', '😈', '🙃', '😎'][Math.floor(Math.random() * 6)];
+            e.style.position = 'fixed';
+            e.style.left = b.style.left;
+            e.style.top = b.style.top;
+            e.style.fontSize = '28px';
+            e.style.animation = 'fadeIn .3s';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 600);
+        }
+        function flip(card) { card.classList.toggle('flipped') }
+        function confetti() { for (let i = 0; i < 40; i++) { let h = document.createElement('div'); h.className = 'heart-float'; h.innerText = '💖'; h.style.left = Math.random() * 100 + 'vw'; h.style.animationDuration = 3 + Math.random() * 3 + 's'; document.body.appendChild(h); setTimeout(() => h.remove(), 6000) } }
+        this.classList.toggle('open')
+        function showMemory(card) {
+            const text = card.querySelector('.memory-text');
+            const img = card.querySelector('.memory-img');
+
+            if (!text.classList.contains('show')) {
+                text.classList.remove('hidden');
+                setTimeout(() => text.classList.add('show'), 50);
+
+                setTimeout(() => {
+                    img.classList.remove('hidden');
+                    setTimeout(() => img.classList.add('show'), 50);
+                }, 1000);
+            }
+        }
+
+        /* ===== FIREWORKS EFFECT ===== */
+
+
+        function goFinal2() {
+            // hide all sections
+            document.querySelectorAll("section").forEach(s => {
+                s.classList.remove("active");
+                s.style.display = "none";
+            });
+
+            // show final2
+            const final2 = document.getElementById("final2");
+            final2.style.display = "flex";
+            final2.classList.add("active");
+
+            startFireworks();
+        }
+
+        function startFireworks() {
+            const canvas = document.getElementById("fireworks");
+            if (!canvas) {
+                console.error("Fireworks canvas not found");
+                return;
+            }
+
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let hearts = [];
+
+            function createHeart() {
+                hearts.push({
+                    x: Math.random() * canvas.width,
+                    y: canvas.height + 20,
+                    size: Math.random() * 18 + 12,
+                    speed: Math.random() * 1.8 + 0.8,
+                    alpha: 1
+                });
+            }
+
+            function drawHeart(x, y, size, alpha) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.scale(size / 20, size / 20);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-10, -10, -20, 5, 0, 20);
+                ctx.bezierCurveTo(20, 5, 10, -10, 0, 0);
+                ctx.fillStyle = `rgba(255, 0, 100, ${alpha})`;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                hearts.forEach((h, i) => {
+                    h.y -= h.speed;
+                    h.alpha -= 0.004;
+                    drawHeart(h.x, h.y, h.size, h.alpha);
+
+                    if (h.alpha <= 0) hearts.splice(i, 1);
+                });
+
+                if (Math.random() < 0.25) createHeart();
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+
+        function revealGift() {
+            document.getElementById("giftDetails").style.display = "block";
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
